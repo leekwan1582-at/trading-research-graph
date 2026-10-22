@@ -1,0 +1,6 @@
+{
+  "schema_version": "1",
+  "strategy_id": "es-meanrev-demo",
+  "bar_frequency": "5min",
+  "research_question": "Test request intake for a proposed ES mean-reversion study; no strategy is executed."
+}

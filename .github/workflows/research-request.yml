@@ -1,0 +1,22 @@
+name: Research request phase
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  request-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install isolated phase package
+        run: |
+          python -m pip install -r request_phase/requirements-tested.txt
+          python -m pip install -e "./request_phase[dev]"
+      - name: Unit and CLI tests
+        run: python -m pytest request_phase/tests -v
+      - name: Fixture smoke test
+        run: python -m trading_request examples/requests/valid.json --root request_phase --allow-fixtures

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1",
+  "snapshot_id": "demo-es-snapshot-v1",
+  "fixture_only": true,
+  "instruments": ["ES"],
+  "available_start": "2020-01-01",
+  "available_end": "2025-12-31"
+}
