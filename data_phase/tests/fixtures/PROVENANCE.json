@@ -1,0 +1,9 @@
+{
+  "source_url": "https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m/BTCUSDT-1m-2024-01.zip",
+  "source_archive_sha256": "40b78258091a468f8756843f207f5913eafc1d6e756c40a78711320d93fa5e75",
+  "checksum_verified": true,
+  "selected_rows": 2880,
+  "selection": "First two UTC days: 2024-01-01 and 2024-01-02. Columns 0..5 mapped to UTC timestamp and OHLCV; symbol added from archive name. Source timestamps are Unix milliseconds.",
+  "parquet_sha256": "be49c2bde1de1c4f90f04dcadb90856864d7444619b13ed392d6ca72d420b055",
+  "note": "Real Binance spot observations used ONLY for pipeline regression. Not synthetic bars; not ES data, futures, or strategy performance. No endorsement or vendor-accuracy guarantee."
+}

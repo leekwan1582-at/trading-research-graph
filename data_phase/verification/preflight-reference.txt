@@ -1,0 +1,4 @@
+PASS: installed Phase 1 and Phase 2 contracts match this Phase 3 adapter
+accept_request: /tmp/data-agent-build/reference/request_phase/src/trading_request/intake.py
+state_from_intake: /tmp/data-agent-build/reference/supervisor_phase/src/trading_supervisor/contracts.py
+strategy_supervisor: /tmp/data-agent-build/reference/supervisor_phase/src/trading_supervisor/supervisor.py

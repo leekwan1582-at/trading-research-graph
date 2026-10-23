@@ -1,0 +1,162 @@
+{
+  "schema_version": "1",
+  "request_id": "btc-data-phase-test-001",
+  "strategy_spec_uri": "specs/btc-data-test.json",
+  "dataset_snapshot_id": "btc-spot-1m-real-test-v1",
+  "universe": [
+    "BTCUSDT"
+  ],
+  "start": "2024-01-01",
+  "end": "2024-01-02",
+  "max_iterations": 3,
+  "status": "data_ready",
+  "iteration": 0,
+  "events": [
+    {
+      "event_id": "f418ef0366a481ce9f81e54784a1be48204934f059cd0b30be5334eaa547705e",
+      "node": "strategy_supervisor",
+      "iteration": 0,
+      "message": "Execution plan prepared; no workers executed"
+    },
+    {
+      "event_id": "072ee2a51f47e48a22526cd57f08da3a055a2f9c540359b6691461223a58d59e",
+      "node": "data_agent",
+      "iteration": 0,
+      "message": "Prepared 2880 validated rows; downstream workers not executed"
+    }
+  ],
+  "lineage": {
+    "request_sha256": "9e0252c705e77922a7be5bf184d8e7fdeda4e4a48f6d331b0c6fbfb9e5107989",
+    "strategy_spec_sha256": "350ef42f241ed3d247c8965f80c0eb74e7cfc68af46a49a5d1b88db53374f311",
+    "snapshot_manifest_sha256": "2a1aa779bbd78869264c71cc89ab35e0a2f738c6c31dcfbd111716a1e12c6e60",
+    "strategy_id": "btc-data-pipeline-test",
+    "validation_scope": "metadata_only",
+    "fixture_only": true
+  },
+  "planning_policy": {
+    "schema_version": "1",
+    "regime_input": "prepared_data",
+    "iteration_cap": 20
+  },
+  "execution_plan": {
+    "schema_version": "1",
+    "planner_version": "0.1.0",
+    "mode": "plan_only",
+    "request_id": "btc-data-phase-test-001",
+    "strategy_id": "btc-data-pipeline-test",
+    "dataset_snapshot_id": "btc-spot-1m-real-test-v1",
+    "universe": [
+      "BTCUSDT"
+    ],
+    "window": {
+      "start": "2024-01-01",
+      "end": "2024-01-02",
+      "date_bounds": "inclusive"
+    },
+    "max_iterations": 3,
+    "regime_input": "prepared_data",
+    "stages": [
+      {
+        "name": "data",
+        "depends_on": []
+      },
+      {
+        "name": "regime",
+        "depends_on": [
+          "data"
+        ]
+      },
+      {
+        "name": "signal",
+        "depends_on": [
+          "data",
+          "regime"
+        ]
+      },
+      {
+        "name": "calibration",
+        "depends_on": [
+          "signal"
+        ]
+      },
+      {
+        "name": "backtest",
+        "depends_on": [
+          "calibration"
+        ]
+      },
+      {
+        "name": "diagnostics",
+        "depends_on": [
+          "backtest"
+        ]
+      },
+      {
+        "name": "reporting",
+        "depends_on": [
+          "diagnostics"
+        ]
+      }
+    ],
+    "parallel_groups": [],
+    "iteration_loop": {
+      "from": "diagnostics",
+      "to": "calibration",
+      "condition": "rejected_and_iteration_below_max",
+      "on_accepted_or_budget_exhausted": "reporting"
+    },
+    "lineage": {
+      "request_sha256": "9e0252c705e77922a7be5bf184d8e7fdeda4e4a48f6d331b0c6fbfb9e5107989",
+      "strategy_spec_sha256": "350ef42f241ed3d247c8965f80c0eb74e7cfc68af46a49a5d1b88db53374f311",
+      "snapshot_manifest_sha256": "2a1aa779bbd78869264c71cc89ab35e0a2f738c6c31dcfbd111716a1e12c6e60",
+      "strategy_id": "btc-data-pipeline-test",
+      "validation_scope": "metadata_only",
+      "fixture_only": true
+    },
+    "planning_policy": {
+      "schema_version": "1",
+      "regime_input": "prepared_data",
+      "iteration_cap": 20
+    },
+    "execution_authorized": false,
+    "not_checked": [
+      "price_file_integrity",
+      "full_strategy_semantics",
+      "statistical_validity",
+      "resource_availability"
+    ]
+  },
+  "plan_sha256": "df2291e56eafd5968956afcccebb4f58eaa6aa34804f6b2fb30c4549c73f325a",
+  "execution_authorized": false,
+  "data_artifact": {
+    "path": "runs/data/effd9f6563e086d95499a502f34265f116da511268bd89ba1c165457a3539467/receipt.json",
+    "sha256": "8d20f82baf023715d5dcfe5cf51210810a505060f946e22fb3d3c07764a5882c",
+    "bytes": 2262
+  },
+  "data_quality": {
+    "validator_version": "0.1.0",
+    "status": "passed",
+    "source_rows": 2880,
+    "selected_rows": 2880,
+    "per_symbol": {
+      "BTCUSDT": {
+        "rows": 2880,
+        "first_bar_open": "2024-01-01T00:00:00+00:00",
+        "last_bar_open": "2024-01-02T23:59:00+00:00"
+      }
+    },
+    "calendar_policy": "continuous_24x7",
+    "coverage_status": "complete_24x7",
+    "warnings": [],
+    "no_repair_applied": true,
+    "not_checked": [
+      "vendor_accuracy",
+      "point_in_time_availability",
+      "survivorship_bias",
+      "corporate_actions",
+      "futures_rolls",
+      "cross_source_reconciliation"
+    ],
+    "fixture_only": true
+  }
+}

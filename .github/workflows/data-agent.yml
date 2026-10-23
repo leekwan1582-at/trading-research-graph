@@ -1,0 +1,32 @@
+name: Data agent phases 1 to 3
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  data-tests:
+    runs-on: ubuntu-latest
+    env:
+      LANGSMITH_TRACING: "false"
+      LANGCHAIN_TRACING_V2: "false"
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install tested dependencies and all local packages
+        run: |
+          python -m pip install -r data_phase/requirements-tested.txt
+          python -m pip install -e './request_phase[dev]' -e './supervisor_phase[dev]' -e './data_phase[dev]'
+          python -m pip check
+      - name: Phase 1 regressions
+        run: python -m pytest request_phase/tests -v
+      - name: Phase 2 regressions
+        run: python -m pytest supervisor_phase/tests -v
+      - name: Phase 3 unit and integration tests
+        run: python -m pytest data_phase/tests -v
+      - name: Offline real-data smoke test
+        run: |
+          python -m trading_data.seed_demo --root data_phase/runs/ci-demo
+          python -m trading_data requests/valid.json --root data_phase/runs/ci-demo --allow-fixtures --allow-local-data
